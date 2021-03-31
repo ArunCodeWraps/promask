@@ -1,0 +1,15 @@
+RewriteEngine on
+
+RewriteRule ^index index.php
+RewriteRule ^products/(.*)$ product-list.php?cat_slug=$1
+RewriteRule ^product/(.*)$ product-detail.php?p_slug=$1
+RewriteRule ^cart cart.php
+RewriteRule ^checkout checkout.php
+RewriteRule ^contact-us contact-us.php
+RewriteRule ^our-company our-company.php
+RewriteRule ^thanks thanks.php
+
+
+#ErrorDocument 404   http://localhost/promask/page-not-found.php
+
+
