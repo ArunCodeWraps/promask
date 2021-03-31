@@ -1,0 +1,151 @@
+/* ==========================================================================
+*
+* Custom CSS Stylesheet. This is where you should add your own styles!
+*
+** ========================================================================== */
+
+/* Simple style overrides or custom adds */
+
+.some-css-selector {font-size:13px;}
+
+.product-list-item .sizespan{
+	float: right;
+}
+
+.cart_list .sizespan{
+	float: right;
+}
+.cart-container .cart_list .color-variations, .cart-container .cart_list .quantity {
+    display: inline;
+    text-align: left;
+}
+
+.product-list-item .kw-details-title, .kl-store-page ul.products li.product .product-list-item .kw-details-title {
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 0 0 10px;
+    padding: 0;
+    font-weight: 300;
+    min-height: 40px;
+}
+
+.product-variant__btn.product-variant__btn--active {
+    background-color: #fff;
+    border-radius: 3px;
+    border: 1px solid #777;
+    color: #ce1f12;
+    font-size: 14px;
+    letter-spacing: .3px;
+    /* font-family: 'Roboto', sans-serif; */
+    font-weight: 600;
+}
+.product-variant__btn {
+    background-color: #fff;
+    border-radius: 3px;
+    border: 1px solid #888;
+    display: inline-block;
+    font-size: 14px;
+    min-height: 32px;
+    min-width: 32px;
+    padding: 6px 12px;
+    margin: 10px 16px 20px 0;
+}
+
+.kl-store-page .kl-store > form .form-row {
+    padding-left: 26px;
+    padding-right: 0;
+}
+
+.kl-store form .form-row-first, .kl-store form .form-row-last, .kl-store-page form .form-row-first, .kl-store-page form .form-row-last {
+    float: left;
+    width: 33%;
+    overflow: visible;
+}
+.kl-store-page .kl-store-checkout-review-order .product-name {
+    width: 70%;
+}
+
+
+/* ==========================================================================
+** Responsive styles custom rules
+* These rules are ready to be used for either overrides
+* or just your own custom rules.
+========================================================================== */
+
+
+/** Higher screens+ **/
+@media only screen and (min-width : 1921px){
+
+}
+
+
+/** Desktop+ **/
+@media (min-width: 1200px) {
+
+}
+
+
+/** Laptop **/
+@media (max-width: 1200px) {
+
+}
+
+
+/** Laptop+ **/
+@media (min-width: 991px) {
+
+}
+
+
+/** Laptop **/
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+
+/** Large Tablets **/
+@media (max-width: 992px) {
+
+}
+
+
+/** Tablets (landscape mode)  **/
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+
+/** Tablets+  **/
+@media (min-width: 768px) {
+
+}
+
+
+/** Tablets (portrait mode)  **/
+@media (min-width : 481px) and (max-width : 768px) {
+
+}
+
+
+/** Smartphone landscape mode / Mini Tablet **/
+@media (max-width: 767px) {
+
+}
+
+
+/** Smartphone landscape mode / Mini Tablet **/
+@media (max-width: 600px) {
+
+}
+
+
+/** Smartphone portrait mode **/
+@media (max-width: 480px) {
+
+}
+
+
+/** Normal phone portrait mode+ **/
+@media (min-width: 320px) {
+	
+}
