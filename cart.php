@@ -96,9 +96,9 @@ $cartData=$itmes;
                         <td class="product-quantity">
                          
                           <div class="cart-info quantity">
-                              <div class="btn-increment-decrement" onclick="decrement_quantity('<?php echo $value['id'] ?>')">-</div>
+                              <div class="btn-increment-decrement" onclick="decrement_quantity('<?php echo $value['id'] ?>','<?php echo $value['prodPriceId'] ?>')">-</div>
                               <input class="input-quantity" id="input-quantity-<?php echo $value['id'] ?>" value="<?php echo $value['qty'] ?>">
-                              <div class="btn-increment-decrement" onclick="increment_quantity('<?php echo $value['id'] ?>')">+</div>
+                              <div class="btn-increment-decrement" onclick="increment_quantity('<?php echo $value['id'] ?>','<?php echo $value['prodPriceId'] ?>')">+</div>
                           </div>
                         </td>
                         <td class="product-subtotal">
@@ -114,7 +114,10 @@ $cartData=$itmes;
                       <tr>
                         <td colspan="6" class="actions">
                           <div class="coupon">
-                            <label for="coupon_code">Coupon:</label><input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="Coupon code"><input type="submit" class="button" name="apply_coupon" value="Apply Coupon">
+                            <label for="coupon_code">Coupon:</label>
+                            <input type="text" name="cocoupon_codeupon_code" id="coupon_codecoupon_code" class="input-text" id="coupon_code" value="" placeholder="Coupon code">
+                            <input type="button" class="button" name="apply_coupon" id="apply_coupon" value="Apply Coupon">
+                            <span id="couponCodeMsg"></span>
                           </div>
                           <!-- <input type="submit" class="button" name="update_cart" value="Update Cart">
                           <input type="hidden" id="_wpnonce" name="_wpnonce" value="1b98fc7d5b"><input type="hidden" name="_wp_http_referer" value="/demo/cart/"> -->
@@ -161,7 +164,7 @@ $cartData=$itmes;
                         </tr>
                       </tbody>
                     </table>
-
+                    <input type="hidden" name="cartAmount" value="<?php echo $finalPrice; ?>">
                     <!-- Checkout button -->
                     <div class="wc-proceed-to-checkout">
                       <a href="checkout" class="checkout-button button alt wc-forward">
@@ -215,11 +218,11 @@ $cartData=$itmes;
 
 <script type="text/javascript"> 
 
- function increment_quantity(p_id) {
+ function increment_quantity(p_id,pr_id) {
     var inputQuantityElement = $("#input-quantity-"+p_id);
     var newQuantity = parseInt($(inputQuantityElement).val())+1;
     $("#input-quantity-"+p_id).val(newQuantity);
-    updateCart(p_id,newQuantity);
+    updateCart(p_id,pr_id,newQuantity);
 }
 
 function decrement_quantity(p_id) {
@@ -227,6 +230,7 @@ function decrement_quantity(p_id) {
     if($(inputQuantityElement).val() > 0) 
     {
      var newQuantity = parseInt($(inputQuantityElement).val()) - 1;
+     //alert(newQuantity); return;
      $("#input-quantity-"+p_id).val(newQuantity);
       updateCart(p_id,newQuantity);
     
@@ -244,6 +248,27 @@ function deleteCartItemCart(product_id){
       })  
   }  
 }  
+
+$(document).ready(function(){
+	 $("#apply_coupon").click(function(e) {
+	 	alert();
+		var url = "ajax/validate-coupon.php";
+		var coupon_code = $("#coupon_code").val();
+	    $.ajax({
+	           type: "POST",
+	           url: url,
+	           data: {coupon_code:coupon_code,cartAmount:cartAmount},
+	           success: function(data)
+	           {  
+	                $("#couponCodeMsg").html(data);
+	                location.reload(); 
+	            }
+	         });
+	    e.preventDefault();
+	})
+})
+
+
 </script>
 
 
