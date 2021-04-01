@@ -30,6 +30,17 @@
                 </li>
 
                 <li class=" navigation-header"><span>Website Setting</span>
+
+                <li class="nav-item has-sub"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="User">Manage Plan</span></a>
+                    <ul class="menu-content" style="">
+                        <li class=""><a href="plan-category-list.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">Category</span></a>
+                        </li>
+                        <li class=""><a href="plan-list.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">Plan</span></a>
+                        </li>
+                    </ul>
+                </li>   
+                
+
                 <li class="<?php echo ($pageName=='level-list' || $pageName=='level-addf')?'active':'' ?> nav-item"><a href="level-list.php"><i class="fa fa-file-image-o"></i><span class="menu-title" data-i18n="Email">Manage Level</span></a>
                     <li class="<?php echo ($pageName=='reward-list' || $pageName=='reward-addf')?'active':'' ?> nav-item"><a href="reward-list.php"><i class="fa fa-file-image-o"></i><span class="menu-title" data-i18n="Email">Manage Reward</span></a>
                 </li>
@@ -39,16 +50,17 @@
 
 
                 
-                <li class=" nav-item"><a href="#"><i class="feather icon-settings"></i><span class="menu-title" data-i18n="Ecommerce">Admin Setting</span></a>
-                    <ul class="menu-content">
-                        <li><a href="unit-list.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Manage Unit</span></a>
+                
+
+
+                <li class="nav-item has-sub"><a href="#"><i class="feather icon-settings"></i><span class="menu-title" data-i18n="User">Admin Setting</span></a>
+                    <ul class="menu-content" style="">
+                        <li class=""><a href="unit-list.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Manage Unit</span></a>
                         </li>
-                        <!-- <li><a href="app-ecommerce-details.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Details">Group Attribute</span></a>
+
+                        <li class=""><a href="send-notification.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Send Notification</span></a>
                         </li>
-                        <li><a href="app-ecommerce-wishlist.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">Assign Attribute to Cat</span></a>
-                        </li>
-                        <li><a href="app-ecommerce-checkout.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Checkout">Checkout</span></a>
-                        </li> -->
+                        
                     </ul>
                 </li>
 

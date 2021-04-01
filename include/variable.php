@@ -20,6 +20,9 @@ $tbl_product_prices='tbl_product_prices';
 $tbl_reward='tbl_reward';
 $tbl_unit='tbl_unit';
 $tbl_user='tbl_user';
+$tbl_plan_category='tbl_plan_category';
+$tbl_plan='tbl_plan';
+$tbl_plan_features='tbl_plan_features';
 
 
 ini_set("date.timezone","Asia/Calcutta");

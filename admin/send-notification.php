@@ -1,192 +1,162 @@
 <?php
 include("../include/config.php");
-include("../include/functions.php"); 
-include("../include/simpleimage.php");
-require_once("../include/pushnotification.php");
+include("../include/functions.php");
+include("../include/simpleimage.php"); 
 validate_admin();
-$push = new Pushnotification;
 
 if($_REQUEST['submitForm']=='yes'){
+ /************* send web notification *************/
 
-	$title=$obj->escapestring($_POST['title']);
-	$message=$obj->escapestring($_POST['content']);
-	$type=$obj->escapestring($_POST['type']);
-	$user_id_arr=$_POST['user_id'];
-	$country_id=$obj->escapestring($_POST['country_id']);
-	$send_date = date('Y-m-d H:i:s',strtotime($_POST['send_date']));
+$title = $_REQUEST['title'];
+$message =substr($_REQUEST['content'],0,100)."...";
 
-if($type==1){
-	$uSql = $obj->query("select * from records where is_verified=1");
-	while($uResult = $obj->fetchNextObject($uSql)){
+if($_FILES['photo']['size']>0 && $_FILES['photo']['error']==''){
+    $img=time().$_FILES['photo']['name'];
+    move_uploaded_file($_FILES['photo']['tmp_name'],"../upload_image/notification/".$img);
+   
+}  
 
-		$user_id = $uResult->id;
-		$username=$uResult->firstname;
-        $type='3';
-        $connection_id='';
-        sendNotificationUser($uid,$title,$message,$user_id,$type,$connection_id);
-	}
+$icon = SITE_URL.'upload_image/notification/'.$img;
+ 
+$url =  "https://promask.com.co/";
 
-	$_SESSION['sess_msg']="Notification Send successfully";
+$apiKey = "90eb81091f6e18ae969d9b4e76cba930";
 
-}else if($type==2){
+$curlUrl = "https://api.pushalert.co/rest/v1/send";
 
-	$userArr=implode(",",$user_id_arr);
-	//print_r($user_id_arr); die;
-	$uSql = $obj->query("select * from records where id in ($userArr)",-1); //die;
-	while($uResult = $obj->fetchNextObject($uSql)){
+//POST variables
+$post_vars = array(
+"icon" => 'https://promask.com.co/images/favicons/favicon-32x32.png',
+"large_image" => $icon,
+"title" => $title,
+"message" => $message,
+"url" => $url,
+);
 
-		$user_id = $uResult->id;
-	    $user_id = $uResult->id;
-		$username=$uResult->firstname;
-        $type='3';
-        $connection_id='';
-        $uid='';
-        sendNotificationUser($user_id,$title,$message,$accept_user_id,$type,$connection_id);
 
-	}
+
+//print_r($post_vars); die;
+$headers = Array();
+$headers[] = "Authorization: api_key=".$apiKey;
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $curlUrl);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post_vars));
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+$result = curl_exec($ch);
+
+$output = json_decode($result, true);
+if($output["success"]) {
+// echo $output["id"]; //Sent Notification ID
+
+  $_SESSION['sess_msg']='Notification send successfully';
+
+
+}
+else {
+//Others like bad request
+  $_SESSION['sess_msg']='try again';
+}
+
+
+
+/************* send web notification *************/
+
+header('Location:send-notification.php');
+
+
+}
+
+
 	
-}else if($type==3){
-
-		$sql=$GLOBALS['obj']->query("select * from tbl_user_device where device_type='1'",$debug=-1);
-
-		while($line=$GLOBALS['obj']->fetchNextObject($sql)){
-	        $registrationId=$line->device_token;
-	        $accept_user_id='';
-	        $type='3';
-	        $connection_id='';
-			$responseEEE = $push->ios_push($registrationId,$title,$message,$accept_user_id,$type,$connection_id); 
-		
-		}
-}else if($type==4){
-
-		$sql=$GLOBALS['obj']->query("select * from tbl_user_device where device_type='2'",$debug=-1);
-
-		while($line=$GLOBALS['obj']->fetchNextObject($sql)){
-	        $registrationId=$line->device_token;
-	        $accept_user_id='';
-	        $type='3';
-	        $connection_id='';
-			$responseEEE = $push->andriod_push($registrationId,$title,$message,$accept_user_id,$type,$connection_id); 
-		
-		}
-}
-
-$_SESSION['sess_msg']="Notification Send successfully";
-//header("location:notification-list.php");
-//exit();
-
-}
-
 ?>
-
 <!DOCTYPE html>
 <html>
 <?php include("head.php"); ?>
-<link rel="stylesheet" href="datepicker/datepicker3.css">
-<body class="hold-transition skin-blue sidebar-mini">
-	<div class="wrapper">
-		<?php include("header.php"); ?>
-		<?php include("menu.php"); ?>
-		<div class="content-wrapper">
-			<section class="content-header">
-				<h1>Send Notification</h1>
-				<ol class="breadcrumb">
-					
-				</ol>
-			</section>
-			<section class="content">
-				<div class="box box-primary">
-					
-					<form name="frm" id="frm" method="POST" enctype="multipart/form-data" action="" onsubmit="return validate(this)">
-						<input type="hidden" name="submitForm" value="yes" />
-						<input type="hidden" name="id" value="<?php echo $_REQUEST['id'];?>" />
-						<div class="box-body">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Tpye</label>
-										<select name="type" id="type" class="required form-control select2">
-											<option value="">Select Type</option>
-											<option value="1">All</option>
-											<option value="2">Individual</option>
-											<option value="3">IOS Users</option>
-											<option value="4">Android Users</option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="row user_idcls"  style="display: none;">
-								<div class="col-md-6 ">
-									<div class="form-group">
-										<label>Select Users</label>
-										<select name="user_id[]" id="user_id" class="form-control select2" multiple style="width: 100%">
-											<option value="">Select User</option>
-											<?php
-											$uSql = $obj->query("select * from records where is_verified=1");
-											while($uResult = $obj->fetchNextObject($uSql)){?>
-												<option value="<?php echo $uResult->id; ?>"><?php echo $uResult->firstname." ".$uResult->lastname; ?> (<?php echo $uResult->email; ?>)</option>
-											<?php }?>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Title</label>
-										<input type="text" name="title" value="" class="required form-control">
-									</div>
-								</div>
+<body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+
+   <?php include("header.php"); ?>
+   <?php include("menu.php"); ?>
 
 
-								<div class="col-md-12">
-									<div class="form-group">
-										<label>Message</label>
-										<textarea name="content" rows="5" id="content" cols="30" class="required form-control"></textarea>
-									</div>
-								</div>
+   <div class="app-content content">
+        <div class="content-wrapper">
+            <div class="content-body">
+			   	<section id="basic-vertical-layouts " class="simple-validation">
+				    <div class="row match-height">
+				        <div class="col-md-12 col-12">
+				            <div class="card">
+				                <div class="card-header">
+				                    <h4 class="card-title">Send Notification</h4>
+				                </div>
+				                <div class="card-content">
+				                    <div class="card-body">
+				                       <form name="frm" method="POST" enctype="multipart/form-data" action="" class="form-horizontal" novalidate>
+											<input type="hidden" name="submitForm" value="yes" />
+											<input type="hidden" name="id" value="<?php echo $_REQUEST['id'];?>" />
+											<input type="hidden" name="oldsubcatid" id="oldsubcatid" value="<?php echo $result->subcat_id; ?>" />
+				                            <div class="form-body">
+				                                <div class="row">
+				                                    
+				                                    <div class="col-6">
+				                                        <div class="form-group">
+				                                          <div class="controls">	
+				                                            <label for="first-name-vertical">Title </label>
+				                                            <input type="text" class="form-control" name="title" placeholder="Plan Name" required data-validation-required-message="This title name field is required" >	
+				                                          </div>  	                                           
+				                                        </div>
+				                                    </div>
+				                                    
+				                                    
+				                                    <div class="col-6">
+				                                        <div class="form-group">
+				                                          <div class="controls">	
+				                                            <label for="first-name-vertical">Image</label>
+				                                            <input type="file" required name="photo" class="form-control">	
+				                                          </div>  	                                           
+				                                        </div>
+				                                    </div>
+				                                    <div class="col-12">
+				                                        <div class="form-group">
+				                                          <div class="controls">	
+				                                            <label for="first-name-vertical">Message</label>
+				                                            <textarea name="content" required rows="5" id="content" cols="30" class="form-control"></textarea>	
+				                                          </div>  	                                           
+				                                        </div>
+				                                    </div>
+				                                    <?php echo $_SESSION['sess_msg']; ?>
+				                                    <div class="col-12">
+				                                        <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Submit</button>
+				                                        <button type="reset" class="btn btn-outline-warning mr-1 mb-1 waves-effect waves-light">Reset</button>
+				                                    </div>
+				                                </div>
+				                            </div>
+				                        </form>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
+				</section>
+            </div>
+        </div>
+    </div>
 
-							</div>
-						</div>
-					<div class="box-footer">
-						<input type="submit" name="submit" value="Submit"  class="button" border="0"/>&nbsp;&nbsp;
-						<input name="Reset" type="reset" id="Reset" value="Reset" class="button" border="0" />
-						<p style="text-align:center"><?php if($_SESSION['sess_msg']){ ?><span class="box-title" style="font-size:14px;color:#a94442"><strong><?php echo $_SESSION['sess_msg'];$_SESSION['sess_msg']='';?></strong></span> <?php }?></p>
-					</div>
-				</form>
-			</div>
-		</section>
-	</div>
-	<?php include("footer.php"); ?>
-	<div class="control-sidebar-bg"></div>
-</div>
-<script src="js/jquery-2.2.3.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/app.min.js"></script>
-<script src="js/demo.js"></script>
-<script src="js/jquery.validate.min.js"></script>
-<script src="js/select2.full.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript">
-	$(".select2").select2({
-		
-			});
-	$(document).ready(function(){
-		$("#type").change(function(){
-			type = $(this).val();
-			if(type==2){
-				$('.user_idcls').show();
-				$('#user_id').addClass("required");
-			}else{
-				$('.user_idcls').hide();
-				$('#user_id').removeClass("required");
-			}
-		})
-
-		$("#frm").validate();
-	})
-</script>
-
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+    <?php include("footer.php"); ?>
 </body>
 </html>
+<?php
+if (!empty($_SESSION['sess_msg'])) { ?>
+<script>
+    toastr.success('<?php echo $_SESSION['sess_msg']; ?>', 'Success!', { "progressBar": true });
+</script>
+<?php $_SESSION['sess_msg']=''; } ?>
+
+
+
+

@@ -75,7 +75,7 @@
 <script src="app-assets/js/scripts/ui/data-list-view.js"></script>
 <script src="app-assets/vendors/js/forms/validation/jqBootstrapValidation.js"></script>
 <script src="app-assets/js/scripts/components.js"></script>
-<script src="app-assets/js/scripts/forms/validation/form-validation.js"></script>
+
 <script src="../include/ckeditor/ckeditor.js"></script>
 <script src="js/change-status.js"></script> 
 </head>
