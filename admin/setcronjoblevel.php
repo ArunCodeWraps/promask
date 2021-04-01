@@ -14,16 +14,14 @@ while($selResult = $obj->fetchNextObject($selSql)){
 	$sellerId = $selResult->id;
 	$totsell=0;
 	$totalsell=0;
-	$uSql = $obj->query("select id from $tbl_user where seller_id='$sellerId' and  status=1 and type='user'",$debug=-1);// die;
+	$uSql = $obj->query("select id from $tbl_user where seller_id='$sellerId' and status=1 and type='user'",$debug=-1);// die;
 	while($uResult = $obj->fetchNextObject($uSql)){
 		$userId = $uResult->id;
-
 		//Seller Users total Sell
 		$totsell = $totsell + getTotalSalesLastMonth($userId);
-
 	}
 	//Seller Total Sale (Individual)
-	$totalsell = $totsell  + getTotalSalesLastMonth($userId);
+	$totalsell = $totsell  + getTotalSalesLastMonth($sellerId);
 
 	$lSql = $obj->query("select level_name from $tbl_level where min_price <= '$totalsell' and max_price >= '$totalsell'",-1); //die;
 	$lReslt = $obj->fetchNextObject($lSql);

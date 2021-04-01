@@ -40,7 +40,6 @@ max-width: 900px;
 <body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 <?php include("header.php"); ?>
 <?php include("menu.php"); ?>
-
 <!-- modal1 -->
 <div class="modal fade" id="stickyModal1" tabindex="-1" role="dialog" aria-labelledby="stickyModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -133,6 +132,8 @@ max-width: 900px;
         </div>
     </div>
 </div>
+<?php
+if($_SESSION['sess_user_type']=='seller'){?>
 <div class="col-lg-3 col-md-6 col-12">
     <div class="card">
         <div class="card-header d-flex flex-column align-items-start pb-0">
@@ -165,7 +166,12 @@ max-width: 900px;
         </div>
     </div>
 </div>
+<?php }?>
+
 </div>
+
+<?php
+if($_SESSION['sess_user_type']=='seller'){?>
 <div class="row">
 <div class="col-md-6 col-12">
     <!-- progressbar -->
@@ -185,7 +191,7 @@ max-width: 900px;
                                 <span><?php echo getField('r_days',$tbl_reward,3); ?></span>
                                 <span><?php echo getField('r_days',$tbl_reward,4); ?></span>
                             </div>
-                            
+                                <?php //echo getTotalSaleswithDuration($_SESSION['sess_user_id']); ?>
                             <div class="progress probar">
                           <div class="progress-bar" role="progressbar" style="width: <?php echo getTotalSaleswithDuration($_SESSION['sess_user_id']); ?>%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
@@ -225,7 +231,7 @@ max-width: 900px;
 						
 						if(!empty($porderId)){
 							$data = array();
-							$osql = $obj->query("select product_id,sum(qty) as qty,sum(price) as price from tbl_order_itmes where order_id in ($porderId) group by product_id",-1); //die;
+							$osql = $obj->query("select product_id,sum(qty) as qty,price from tbl_order_itmes where order_id in ($porderId) group by product_id",-1); //die;
 							while($oResult = $obj->fetchNextObject($osql)){
 								$totalUSales = $oResult->price*$oResult->qty;
 								$data['label'] = substr(getField('name',$tbl_product,$oResult->product_id),0,20);
@@ -271,15 +277,22 @@ max-width: 900px;
         while($result=$obj->fetchNextObject($sql)){
             $orderArr[] = $result->id;
         }
-
+        $totalUSales=0;
         $orderId = implode(',',$orderArr);
         if(!empty($orderId)){
-            $osql = $obj->query("select product_id,sum(qty) as qty,sum(price) as price from tbl_order_itmes where order_id in ($orderId)",-1); //die;
-            $oResult = $obj->fetchNextObject($osql);
-            $totalUSales = $oResult->price*$oResult->qty;
+            $osql = $obj->query("select product_id,sum(qty) as qty,price from tbl_order_itmes where order_id in ($orderId)  GROUP by product_id",-1); //die;
+            while($oResult = $obj->fetchNextObject($osql)){
+                $totalUUSales = $oResult->price*$oResult->qty;
+                $totalUSales = $totalUSales + $totalUUSales;
+            }
+            
         }
 
-        $totalGoalPrice =  getTotalSaleProductOnGoal();
+        if(!empty($search_filter)){
+            $totalGoalPrice =  getTotalSaleProductOnGoal($search_filter);
+        }else{
+            $totalGoalPrice =  getTotalSaleProductOnGoal(1);
+        }
         $totPercentage = intval($totalUSales*100/$totalGoalPrice);
         ?>
         <div class="card-content">
@@ -308,6 +321,7 @@ max-width: 900px;
     </div>
 </div>
 </div>
+<?php }?>
 <div class="row">
 <div class="col-12">
     <div class="card">

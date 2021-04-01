@@ -9,7 +9,8 @@ if(!is_object($cart)) $cart = new wfCart();
 $itmes=$cart->get_contents();
 $no_of_itmes=count($itmes);
 $cartData=$itmes;
-// print_r($cartData);
+unset($_SESSION['couponDiscountAmount']);
+unset($_SESSION['couponDiscountMsg']);
 
 ?>
 <!DOCTYPE html>
@@ -68,25 +69,6 @@ $cartData=$itmes;
       </div>
       <!--/ container -->
     </section>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
   
   <?php include("modal.php"); ?>
   <?php include("footer.php"); ?> 

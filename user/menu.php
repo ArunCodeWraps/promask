@@ -13,17 +13,22 @@
         <?php $pageName= pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME); ?>
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
             <li class="nav-item"><a href="welcome.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span></a></li>
-            <li class=" navigation-header"><span>User</span></li>
-            <li class="<?php echo ($pageName =='user-list' || $pageName =='user-addf')?'active':'' ?> nav-item"><a href="user-list.php"><i class="feather icon-grid"></i><span class="menu-title" data-i18n="Email">User</span></a>
-            </li>
+
+            <?php
+            if($_SESSION['sess_user_type']=='seller'){?>
+                <li class=" navigation-header"><span>User</span></li>
+                <li class="<?php echo ($pageName =='user-list' || $pageName =='user-addf')?'active':'' ?> nav-item"><a href="user-list.php"><i class="feather icon-grid"></i><span class="menu-title" data-i18n="Email">User</span></a>
+                </li>
+            <?php }?>
             <li class=" navigation-header"><span>Catalog</span></li>
             <li class="<?php echo ($pageName =='order-list' || $pageName =='order-addf')?'active':'' ?> nav-item"><a href="order-list.php"><i class="feather icon-grid"></i><span class="menu-title" data-i18n="Email">Order</span></a>
             </li>
-
+            <?php
+            if($_SESSION['sess_user_type']=='seller'){?>
              <li class=" navigation-header"><span>Report</span></li>
             <li class="<?php echo ($pageName =='sale-report-list')?'active':'' ?> nav-item"><a href="sale-report-list.php"><i class="feather icon-grid"></i><span class="menu-title" data-i18n="Email">Sell Report</span></a>
             </li>
-
+            <?php }?>
              <li class=" navigation-header"><span>Change Password</span></li>
              <li class="<?php echo ($pageName =='change-password')?'active':'' ?> nav-item"><a href="change-password.php"><i class="feather icon-grid"></i><span class="menu-title" data-i18n="Email">Change Password</span></a>
             </li>

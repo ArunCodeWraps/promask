@@ -115,12 +115,11 @@ $cartData=$itmes;
                         <td colspan="6" class="actions">
                           <div class="coupon">
                             <label for="coupon_code">Coupon:</label>
-                            <input type="text" name="cocoupon_codeupon_code" id="coupon_codecoupon_code" class="input-text" id="coupon_code" value="" placeholder="Coupon code">
+                            <input type="text" name="cocoupon_codeupon_code"class="input-text" id="coupon_code" value="" placeholder="Coupon code">
                             <input type="button" class="button" name="apply_coupon" id="apply_coupon" value="Apply Coupon">
-                            <span id="couponCodeMsg"></span>
+                            <span id="couponCodeMsg" style="color: red;"><?php echo $_SESSION['couponDiscountMsg']; $_SESSION['couponDiscountMsg']=''; ?></span>
                           </div>
-                          <!-- <input type="submit" class="button" name="update_cart" value="Update Cart">
-                          <input type="hidden" id="_wpnonce" name="_wpnonce" value="1b98fc7d5b"><input type="hidden" name="_wp_http_referer" value="/demo/cart/"> -->
+
                         </td>
                       </tr>
                     </tbody>
@@ -152,19 +151,30 @@ $cartData=$itmes;
                              $0
                           </td>
                         </tr>
+                        <?php
+                        if($_SESSION['couponDiscountAmount']>0){?>
+                        <tr class="shipping">
+                          <th>
+                            Coupon Discount
+                          </th>
+                          <td>
+                             $<?php echo $_SESSION['couponDiscountAmount']; ?>
+                          </td>
+                        </tr>
+                        <?php }?>
                         <tr class="order-total">
                           <th>
                             Total
                           </th>
                           <td>
                             <span class="amount">
-                              <strong>$<?php echo number_format($finalPrice,2) ?></strong>
+                              <strong>$<?php echo number_format($finalPrice-$_SESSION['couponDiscountAmount'],2) ?></strong>
                             </span>
                           </td>
                         </tr>
                       </tbody>
                     </table>
-                    <input type="hidden" name="cartAmount" value="<?php echo $finalPrice; ?>">
+                    <input type="hidden" id="cartAmount" name="cartAmount" value="<?php echo $finalPrice; ?>">
                     <!-- Checkout button -->
                     <div class="wc-proceed-to-checkout">
                       <a href="checkout" class="checkout-button button alt wc-forward">
@@ -192,24 +202,6 @@ $cartData=$itmes;
     </section>
 
     
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-  
-
-  
-  
   <?php include("modal.php"); ?>
   <?php include("footer.php"); ?> 
 
@@ -251,9 +243,9 @@ function deleteCartItemCart(product_id){
 
 $(document).ready(function(){
 	 $("#apply_coupon").click(function(e) {
-	 	alert();
 		var url = "ajax/validate-coupon.php";
 		var coupon_code = $("#coupon_code").val();
+		var cartAmount = $("#cartAmount").val();
 	    $.ajax({
 	           type: "POST",
 	           url: url,
