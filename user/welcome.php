@@ -40,7 +40,6 @@ max-width: 900px;
 <body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 <?php include("header.php"); ?>
 <?php include("menu.php"); ?>
-
 <!-- modal1 -->
 <div class="modal fade" id="stickyModal1" tabindex="-1" role="dialog" aria-labelledby="stickyModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -133,6 +132,8 @@ max-width: 900px;
         </div>
     </div>
 </div>
+<?php
+if($_SESSION['sess_user_type']=='seller'){?>
 <div class="col-lg-3 col-md-6 col-12">
     <div class="card">
         <div class="card-header d-flex flex-column align-items-start pb-0">
@@ -165,7 +166,12 @@ max-width: 900px;
         </div>
     </div>
 </div>
+<?php }?>
+
 </div>
+
+<?php
+if($_SESSION['sess_user_type']=='seller'){?>
 <div class="row">
 <div class="col-md-6 col-12">
     <!-- progressbar -->
@@ -315,6 +321,7 @@ max-width: 900px;
     </div>
 </div>
 </div>
+<?php }?>
 <div class="row">
 <div class="col-12">
     <div class="card">
