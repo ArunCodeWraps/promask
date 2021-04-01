@@ -12,18 +12,17 @@ if(!is_object($cart)) $cart = new wfCart();
 	$sql1=$obj->query("SELECT * from $tbl_coupon WHERE coupon_code='".$code."' and status=1",$debug=-1); //die;
 	$couponData=$obj->fetchNextObject($sql1);
 
-
-	if (!empty($couponData)) { // Check coupon is valid or not
+	if(empty($_SESSION['couponDiscountAmount'])){
+	if (!empty($couponData)) {
+	 // Check coupon is valid or not
 		
 		// Get coupon code expire time
 		$today = strtotime(date("Y-m-d H:i:s",strtotime("-1 day")));
 		$end_date =  strtotime($couponData->expire_date);
 		$expireTime =floor(($end_date-$today)/60);
-
 		if ($expireTime>0) {	// Check coupon is Not Expire or Valid time	
 			
 			if ($couponData->valid_for=="All") { 	// Check coupan valid for All or Particular
-				
 				if ($couponData->discount_type=="Percent") {	// Check coupon code discount type
 					
 					if ($cartAmount>=$couponData->minimum_purchase) {	//Check cart amount greater than minimum purchase 
@@ -131,7 +130,12 @@ if(!is_object($cart)) $cart = new wfCart();
 		$_SESSION['couponDiscountMsg']= "Coupon code is invalid";
 		$_SESSION['couponstatus']="0";
 	}
+} else {
+	$_SESSION['couponDiscountMsg']= "Coupon code is already used";
+	$_SESSION['couponstatus']="0";
+}
 	
+
 	//print_r($couponData);
         
 ?>

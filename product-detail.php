@@ -172,6 +172,9 @@ $getpic=$obj->fetchNextObject($obj->query("select * from $tbl_product_prices whe
                               <div class="btn-increment-decrement" onclick="increment_quantity('<?php echo $proResult->id ?>')">+</div>
                           </div>
                           <button type="button"  class="single_add_to_cart_button button alt add-to-cart-detail" onclick="return false"  data-product_id="<?php echo $proResult->id ?>" data-product_name="<?php echo $proResult->name ?>" data-product_price="<?php echo $finalPrice ?>" data-image="<?php echo $getpic->photo ?>" data-quantity="1" data-size="<?php echo $size ?>" data-product_price_id="<?php echo $getpic->id ?>">Add to cart</button>
+
+                          <button type="button"  class="single_add_to_cart_button button alt add-to-cart-detail" onclick="return false"  data-product_id="<?php echo $proResult->id ?>" data-product_name="<?php echo $proResult->name ?>" data-product_price="<?php echo $finalPrice ?>" data-image="<?php echo $getpic->photo ?>" data-quantity="1" data-size="<?php echo $size ?>" data-product_price_id="<?php echo $getpic->id ?>">Add to Wishlist</button>
+
                         </div>
                         <!--/ Button variations -->
                       </div>

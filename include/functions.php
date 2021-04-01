@@ -1086,7 +1086,6 @@ function getTotalSales($id) {
 
 
 function getTotalSaleswithDuration($id) {
-
 	$sql=$GLOBALS['obj']->query("select cdate from tbl_user where id='$id'",$debug=-1);
 	$result=mysqli_fetch_assoc($sql);
 	if(!empty($result['cdate'])){
@@ -1114,8 +1113,7 @@ function getTotalSaleswithDuration($id) {
         	$totalUSales=0;
         }
 
-      
-		if($registerDay > 0  && $registerDay <= $r_days1){
+     	if($registerDay > 0  && $registerDay <= $r_days1){
 			$totalAmt = getField('amount','tbl_reward',1);
 			$totalSale = intval($totalAmt*100)/intval($totalUSales);
 			$totalSale = round($totalSale*1/4);
@@ -1144,13 +1142,24 @@ function getTotalSaleswithDuration($id) {
 	}
 }
 
-function getTotalSaleProductOnGoal() {	
-	$sql=$GLOBALS['obj']->query("select id,sum(goalprice) as goalprice from tbl_product where is_goal='1' and status=1");
+function getTotalSaleProductOnGoal($search_filter) {	
+	$sql=$GLOBALS['obj']->query("select id,sum(goalprice) as goalprice from tbl_product where is_goal='1' and status=1",-1);
 	$result=mysqli_fetch_assoc($sql);
 	if(empty($result['goalprice'])){
 		return 0;
 	}else{
-		return ($result['goalprice']);
+		if($search_filter==1){
+			return ($result['goalprice']);
+		}else if($search_filter==2){
+			return ($result['goalprice']);
+		}else if($search_filter==3){
+			return ($result['goalprice']*3);
+		}else if($search_filter==4){
+			return ($result['goalprice']*6);
+		}else if($search_filter==5){
+			return ($result['goalprice']*12);
+		}
+		
 	}
 }
 

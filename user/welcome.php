@@ -185,7 +185,7 @@ max-width: 900px;
                                 <span><?php echo getField('r_days',$tbl_reward,3); ?></span>
                                 <span><?php echo getField('r_days',$tbl_reward,4); ?></span>
                             </div>
-                            
+                                <?php //echo getTotalSaleswithDuration($_SESSION['sess_user_id']); ?>
                             <div class="progress probar">
                           <div class="progress-bar" role="progressbar" style="width: <?php echo getTotalSaleswithDuration($_SESSION['sess_user_id']); ?>%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
@@ -271,15 +271,22 @@ max-width: 900px;
         while($result=$obj->fetchNextObject($sql)){
             $orderArr[] = $result->id;
         }
-
+        $totalUSales=0;
         $orderId = implode(',',$orderArr);
         if(!empty($orderId)){
-            $osql = $obj->query("select product_id,sum(qty) as qty,sum(price) as price from tbl_order_itmes where order_id in ($orderId)",-1); //die;
-            $oResult = $obj->fetchNextObject($osql);
-            $totalUSales = $oResult->price*$oResult->qty;
+            $osql = $obj->query("select product_id,sum(qty) as qty,price as price from tbl_order_itmes where order_id in ($orderId)  GROUP by product_id",-1); //die;
+            while($oResult = $obj->fetchNextObject($osql)){
+                $totalUUSales = $oResult->price*$oResult->qty;
+                $totalUSales = $totalUSales + $totalUUSales;
+            }
+            
         }
 
-        $totalGoalPrice =  getTotalSaleProductOnGoal();
+        if(!empty($search_filter)){
+            $totalGoalPrice =  getTotalSaleProductOnGoal($search_filter);
+        }else{
+            $totalGoalPrice =  getTotalSaleProductOnGoal(1);
+        }
         $totPercentage = intval($totalUSales*100/$totalGoalPrice);
         ?>
         <div class="card-content">
