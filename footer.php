@@ -102,7 +102,7 @@
                 </a>
                 
                 <p>
-                  © 2018 All rights reserved. Buy <a href="http://idigitalweb.in">IDigitalWeb</a>.
+                  © 2018 All rights reserved. By <a href="http://idigitalweb.in">IDigitalWeb</a>.
                 </p>
               </div>
               <!--/ copyright -->

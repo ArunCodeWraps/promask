@@ -3555,7 +3555,9 @@ span.statistic-box__icon {font-size: 80px; }
 .tabs_style5 .tab-content {width: 100%; padding: 10px 0 15px; margin-top: 10px;}
 
 /* Pricing Tables element (new style) */
-
+.pricing-table-element .plan-column {
+    border: 1px solid #e6e7e8 !important;
+}
 .pricing-table-element {*zoom: 1; background:#fff; border:1px solid #e6e7e8; border-radius: 4px; font-size: 13px; color:#999999; }
 .pricing-table-element::before, .pricing-table-element::after {display: table; line-height: 0; content: ""; }
 .pricing-table-element::after { clear: both; }
