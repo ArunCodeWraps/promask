@@ -34,7 +34,13 @@ $cartData=$itmes;
             <div class="kl-title-block text-left tbk-symbol--line  tbk-icon-pos--after-title">
               <!-- Title -->
               <h2 class="tbk__title kl-font-alt fs-xl fw-semibold black">
-                Your order successfully placed.
+                  
+                <?php if ($_SESSION['paymentStatus']==1) {
+                  echo "<p>Your order successfully placed.</p>";
+                } else {
+                  echo "<p style='color:red'>Your payment if fail try again.</p>";
+                } ?>
+                  
               </h2>
 
               <!-- Symbol line -->

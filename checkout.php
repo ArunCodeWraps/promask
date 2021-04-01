@@ -60,7 +60,7 @@ $cartData=$itmes;
 
                 <?php } ?>
 
-                <div class="kl-store-info">
+                <!-- <div class="kl-store-info">
                   Have a coupon? <a href="#" class="showcoupon">Click here to enter your code</a>
                 </div>
 
@@ -73,7 +73,7 @@ $cartData=$itmes;
                   </p>
                   <div class="clear">
                   </div>
-                </form>
+                </form> -->
 
 
 
@@ -219,31 +219,52 @@ $cartData=$itmes;
                     <div id="payment" class="kl-store-checkout-payment">
                       <ul class="payment_methods methods">
                         <li class="payment_method_cheque">
-                        <input id="payment_method_cheque" type="radio" class="input-radio" name="payment_method" value="cheque" checked="checked" data-order_button_text="">
+                        <input id="payment_method_cheque" type="radio" class="input-radio" name="payment_method" value="cod" checked="checked" data-order_button_text="">
                         <label for="payment_method_cheque">
-                        Cheque Payment </label>
+                        Cash on delivery</label>
                         <div class="payment_box payment_method_cheque">
                           <p>
-                            Please send your cheque to Store Name, Store Street, Store Town, Store State / County, Store Postcode.
+                            You can pay on the delivery.
                           </p>
                         </div>
                         </li>
                         <li class="payment_method_paypal">
-                        <input id="payment_method_paypal" type="radio" class="input-radio" name="payment_method" value="paypal" data-order_button_text="Proceed to PayPal">
+                        <input id="payment_method_paypal" type="radio" class="input-radio" name="payment_method" value="online" data-order_button_text="Proceed to PayPal">
                         <label for="payment_method_paypal">
-                        PayPal <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/AM_mc_vs_ms_ae_UK.png" alt="PayPal Acceptance Mark"><a href="https://www.paypal.com/gb/webapps/mpp/paypal-popup" class="about_paypal" onclick="" title="What is PayPal?">What is PayPal?</a></label>
-                        <div class="payment_box payment_method_paypal" style="display:none;">
+                        Pay with Wompi </label>
+                        <div class="payment_box payment_method_paypal">
                           <p>
-                            Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.
+                            Pay via Wompi; you can pay with your credit card and debit card.
                           </p>
                         </div>
                         </li>
                       </ul>
                       <div class="form-row place-order">
                         <input type="submit" class="button alt" name="kl-store_checkout_place_order" id="place_order" value="Place order" data-value="Place order">
+
+                        <p><span id="msgOrder" style="padding-left:10px;color:red;"></span></p>
                       </div>
                     </div>
                   </div>
+                </form>
+
+
+
+                <?php
+                    $referenceCode = time().rand(1111111111,9999999999);
+                ?>
+                
+                <form id="paymentForm" action="https://checkout.wompi.co/p/" method="GET" style="display: none;">
+                  
+                  <input type="hidden" name="public-key" value="pub_test_mJTauLDQ8TRwyNDI7yUdcivaHFElrDU3" />
+                  <input type="hidden" name="currency" value="COP" />
+                  <input type="hidden" name="amount-in-cents" id="paymentAmount" value="<?php echo $finalPrice ?>" />
+                  <input type="hidden" name="reference" value="<?php echo $referenceCode ?>" />
+                  <!-- OPCIONALES -->
+                  <input type="hidden" name="redirect-url" value="http://localhost/promask/payment.php" />
+                  <button type="submit">Pagar con Wompi</button>
+
+                  
                 </form>
               </div>
               <!--/ .kl-store -->
@@ -277,14 +298,18 @@ $cartData=$itmes;
                 , url: "ajax/checkout.php"
                 , data: form.serialize()
                 , success: function (data) {
-                    //console.log(data);
-                    // if (data==1) {
-                    //   $("#loginmsg").html("<b style='color:red'>Invalid username and password.</b>");
-                    // } else {
-                    //    //location.reload();
-                    // }
+                    var res =JSON.parse(data);
+                    if (res.status==1 && res.pmode=='cod') {
+                      location.href = 'thanks';
 
-                    location.href = 'thanks';
+                    }else if(res.status==1 && res.pmode=='online'){
+                      document.forms["paymentForm"].submit();
+
+                    }else{
+                      $('#msgOrder').html(res.msg);
+                    }
+
+                    //location.href = 'thanks';
                     
                 }
             });
