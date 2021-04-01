@@ -1102,43 +1102,45 @@ function getTotalSaleswithDuration($id) {
 			$orderArr[] = $SResult['id'];
 		}
 		$orderId = implode(',',$orderArr);
-	
+		$totalUSales=0;
 		if(!empty($orderId)){
-            $osql = $GLOBALS['obj']->query("select product_id,sum(qty) as qty,sum(price) as price from tbl_order_itmes where order_id in ($orderId)",-1); //die;
-            $oResult = mysqli_fetch_assoc($osql);
-            $totalUSales = $oResult['price']*$oResult['qty'];
+            $osql = $GLOBALS['obj']->query("select product_id,sum(qty) as qty,price from tbl_order_itmes where order_id in ($orderId) group by product_id",-1); //die;
+            while($oResult = mysqli_fetch_assoc($osql)){
+            	$totalUUSales = $oResult['price']*$oResult['qty'];
+                $totalUSales = $totalUSales + $totalUUSales;
+            }
+            
         }
-
         if(empty($totalUSales)){
         	$totalUSales=0;
         }
+        //echo $totalUSales; die;
 
      	if($registerDay > 0  && $registerDay <= $r_days1){
 			$totalAmt = getField('amount','tbl_reward',1);
-			$totalSale = intval($totalAmt*100)/intval($totalUSales);
+			$totalSale = intval($totalUSales*100)/intval($totalAmt);
 			$totalSale = round($totalSale*1/4);
 		}else if($registerDay > $r_days1  && $registerDay <= $r_days2){
 			$totalAmt = getField('amount','tbl_reward',2);
-			$totalSale = intval($totalAmt*100)/intval($totalUSales);
+			$totalSale = intval($totalUSales*100)/intval($totalAmt);
 			$totalSale = round($totalSale*2/4);
 		}else if($registerDay > $r_days2  && $registerDay <= $r_days3){
 			$totalAmt = getField('amount','tbl_reward',3);
-			$totalSale = intval($totalAmt*100)/intval($totalUSales);
+			$totalSale = intval($totalUSales*100)/intval($totalAmt);
 			$totalSale = round($totalSale*3/4);
 		}else if($registerDay > $r_days3  && $registerDay <= $r_days4){
 			$totalAmt = getField('amount','tbl_reward',4);
-			$totalSale = intval($totalAmt*100)/intval($totalUSales);
+			$totalSale = intval($totalUSales*100)/intval($totalAmt);
 			$totalSale = round($totalSale);
 			if($totalSale>100){
 				$totalSale=100;
 			}
 		}
 	}
-
 	if(empty($totalSale)){
-		return 0;
+		echo  0;
 	}else{
-		return $totalSale;
+		echo  $totalSale;
 	}
 }
 

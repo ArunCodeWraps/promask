@@ -231,7 +231,7 @@ if($_SESSION['sess_user_type']=='seller'){?>
 						
 						if(!empty($porderId)){
 							$data = array();
-							$osql = $obj->query("select product_id,sum(qty) as qty,sum(price) as price from tbl_order_itmes where order_id in ($porderId) group by product_id",-1); //die;
+							$osql = $obj->query("select product_id,sum(qty) as qty,price from tbl_order_itmes where order_id in ($porderId) group by product_id",-1); //die;
 							while($oResult = $obj->fetchNextObject($osql)){
 								$totalUSales = $oResult->price*$oResult->qty;
 								$data['label'] = substr(getField('name',$tbl_product,$oResult->product_id),0,20);
@@ -280,7 +280,7 @@ if($_SESSION['sess_user_type']=='seller'){?>
         $totalUSales=0;
         $orderId = implode(',',$orderArr);
         if(!empty($orderId)){
-            $osql = $obj->query("select product_id,sum(qty) as qty,price as price from tbl_order_itmes where order_id in ($orderId)  GROUP by product_id",-1); //die;
+            $osql = $obj->query("select product_id,sum(qty) as qty,price from tbl_order_itmes where order_id in ($orderId)  GROUP by product_id",-1); //die;
             while($oResult = $obj->fetchNextObject($osql)){
                 $totalUUSales = $oResult->price*$oResult->qty;
                 $totalUSales = $totalUSales + $totalUUSales;
