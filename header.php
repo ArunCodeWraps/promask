@@ -294,6 +294,7 @@
                       
                       <li class="menu-item-has-children"><a href="index">Home</a></li>
                       <li class="menu-item-has-children"><a href="our-company">Our company</a></li>
+                      <li class="menu-item-has-children"><a href="plan.php">Our Plan</a></li>
                       <li class="menu-item-has-children"><a href="#">Shop By Category</a>
                         <ul class="sub-menu clearfix">
                           <?php $mSql = $obj->query("select * from $tbl_maincategory where status='1' and parent_id='0'",$debug=-1); 
