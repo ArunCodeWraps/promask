@@ -192,7 +192,7 @@ $result=$obj->fetchNextObject($sql);
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         </tr>";
-      $itmesArr=$obj->query("select * from $tbl_order_itmes where order_id='".$result->id."'",$debug=-1);
+      $itmesArr=$obj->query("select * from $tbl_order_itmes where order_id='".$result->id."'");
       while($resultItem=$obj->fetchNextObject($itmesArr)){
       $enq_message.="<tr>
         <td><strong>".$resultItem->product_name."</strong></td>

@@ -1064,7 +1064,7 @@ function getProductFinalPrice($id,$pr_id,$qnt) {
 
 
 function getTodaySales($id) {	
-	$sql=$GLOBALS['obj']->query("select sum(total_amount) as total_amount from tbl_order where user_id='$id' and order_status=3 and date(order_date)=date(now())",$debug=-1);
+	$sql=$GLOBALS['obj']->query("select sum(total_amount) as total_amount from tbl_order where (seller_id='$id' or user_id='$id') and order_status=3 and date(order_date)=date(now())",$debug=-1);
 	$result=mysqli_fetch_assoc($sql);
 	if(empty($result['total_amount'])){
 		return 0;
