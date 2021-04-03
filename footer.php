@@ -222,10 +222,13 @@
                 , data: form.serialize()
                 , success: function (data) {
                     console.log(data);
-                    if (data==0) {
-                      $("#loginmsg").html("<b style='color:red'>Invalid username and password.</b>");
-                    } else {
+                    if (data==1) {
                        window.location.href='user/welcome.php';
+                      
+                    }else if(data==2){
+                       $("#loginmsg").html("<b style='color:red'>Your Email address is not verified.</b>"); 
+                    } else {
+                      $("#loginmsg").html("<b style='color:red'>Invalid username and password.</b>");
                     }
                     
                 }
@@ -255,7 +258,7 @@
                         if (data==0) {
                           $("#regismsg").html("<b style='color:red'>This email address already register with us.</b>");
                         } else {
-                          $("#regismsg").html("<b style='color:green'>Your account Successfully register.</b>");
+                          $(".register-panel").html("<b style='color:green'>Your account Successfully register.<br><br>Verification mail send to your email address.</b>");
                         }
                         
                     }
@@ -295,30 +298,7 @@ $(document).ready(function () {
         });
     });
 
-
- function forgotPassword() {
-    var email = $('#forgot_email').val();
-    
-    if (email) {
-        $.ajax({
-            type: "POST",
-            url: "ajax/forgot_password.php",
-            data:{'forgot_email':email},
-            success: function(data){
-                console.log(data);
-                if (data=='1') {
-                    $('#forgoterrmsg').html('The password has been sent to your email address'); 
-                   
-                }else if(data=='0'){
-                    $('#forgoterrmsg').html('Please enter a valid email');                
-                }
-            }
-        });
-
-    } else {
-        $("#forgoterrmsg").html('Please enter a valid email');
-    }
-}   
+   
 </script>
 
 
