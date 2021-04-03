@@ -115,7 +115,7 @@ function deleteCartItem(product_id){
 			data:{product_id:product_id,pr_id:pr_id,qty:qty,action:"edit_cart"},
 			success:function(data){
 				console.log(data);
-				//location.reload();	
+				location.reload();	
 				 
 			}
 			

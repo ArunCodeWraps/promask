@@ -210,39 +210,8 @@ if($_SESSION['sess_user_type']=='seller'){?>
     </div>
 
 
-    <div class="card">
-        <div class="card-header">
-            <h4 class="mb-0">Goal Product List</h4>
-        </div>
-        <div class="card-content">
-            <div class="table-responsive mt-1">
-                <table class="table table-hover-animation mb-0">
-                    <thead>
-                        <tr>
-                            <th>Order Date/Time</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    $i=1;
-                    $sql=$obj->query("select * from $tbl_product where status=1 order by id desc",$debug=-1);
-                    while($line=$obj->fetchNextObject($sql)){?>
-                    <tr>
-                        <td class="product-image"><?php echo stripslashes($line->name); ?></td>
-                        <td class="product-action">
-                        <a href="javascript:void(0)" class="btn btn-primary" title="View Details" onclick="viewOrder(<?php echo $line->id ?>)">
-                        <i class="fa fa-eye"></i></a>                    
-                        </td>
-                    </tr>
-                    <?php $i++; }?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 
-     <!-- <div class="card">
+     <div class="card">
         <div class="card-content">
             <div class="card-body">
                 <div class="row pb-50">
@@ -279,7 +248,7 @@ if($_SESSION['sess_user_type']=='seller'){?>
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
 
 
