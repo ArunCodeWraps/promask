@@ -60,6 +60,7 @@ validate_user();
                                     <th></th>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Password</th>
                                     <th>STATUS</th>
                                     <th>ACTION</th>
                                 </tr>
@@ -73,6 +74,7 @@ validate_user();
                                     <td><input type="checkbox" class="dt-checkboxes" name="ids[]" value="<?php echo $line->id ?>"></td>
                                     <td class="product-image"><?php echo stripslashes($line->name); ?></td>
                                     <td class="product-name"><?php echo stripslashes($line->email); ?></td>
+                                    <td class="product-name"><?php echo stripslashes($line->password); ?></td>
                                     <td class="product-price">
                                         <p></p>
                                         <div class="custom-control custom-switch custom-switch-success mr-2 mb-1">

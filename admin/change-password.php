@@ -1,24 +1,25 @@
+
 <?php
 include("../include/config.php");
 include("../include/functions.php");
-validate_user();
+validate_admin();
 
 if($_POST['submitForm'] == "yes") {
   $new_password=$obj->escapestring($_POST['new_password']);
   $confirm_password=$obj->escapestring($_POST['confirm_password']);
 
   if($new_password==$confirm_password){
-    $query=$obj->query("select * from $tbl_user where id=".$_SESSION['sess_user_id'],$debug=-1);
+    $query=$obj->query("select * from $tbl_admin where id=".$_SESSION['sess_admin_id'],$debug=-1);
     $result=$obj->fetchNextObject($query);
 
-     $obj->query("update $tbl_user set password='$new_password' where id=".$_SESSION['sess_user_id']);
+     $obj->query("update $tbl_admin set password='$new_password' where id=".$_SESSION['sess_admin_id']);
       $_SESSION['sess_msg']='Your password has been updated successfully !';
   }else{
     $_SESSION['sess_msg']='Both password are not same!';
   }
 }
-if($_SESSION['sess_user_id']){
-  $sql=$obj->query("select * from $tbl_user where id=".$_SESSION['sess_user_id']);
+if($_SESSION['sess_admin_id']){
+  $sql=$obj->query("select * from $tbl_admin where id=".$_SESSION['sess_admin_id']);
   $result=$obj->fetchNextObject($sql);
 }
   

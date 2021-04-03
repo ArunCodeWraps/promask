@@ -1041,6 +1041,14 @@ function getProductFinalPrice($id,$pr_id,$qnt) {
 	$sql=$GLOBALS['obj']->query("select * from tbl_product_prices where id='$pr_id' and product_id='$id'",-1);
 	$result=mysqli_fetch_assoc($sql);
 
+	echo $result['qnt_size1']; 
+	echo "=====";
+	echo $qnt;
+	echo "=====";
+	echo $result['qnt_size2'];
+	echo "=====";
+	echo $result['qnt_size3'];
+	die;
 	if ($result['qnt_size1'] > 0 && $qnt >= $result['qnt_size1'] && $qnt < $result['qnt_size2']) {
 		return $result['price_size1'];
 

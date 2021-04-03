@@ -217,14 +217,14 @@ $cartData=$itmes;
     updateCart(p_id,pr_id,newQuantity);
 }
 
-function decrement_quantity(p_id) {
+function decrement_quantity(p_id,price_id) {
     var inputQuantityElement = $("#input-quantity-"+p_id);
     if($(inputQuantityElement).val() > 0) 
     {
      var newQuantity = parseInt($(inputQuantityElement).val()) - 1;
      //alert(newQuantity); return;
      $("#input-quantity-"+p_id).val(newQuantity);
-      updateCart(p_id,newQuantity);
+      updateCart(p_id,price_id,newQuantity);
     
     }
 }
