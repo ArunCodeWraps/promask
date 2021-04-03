@@ -17,6 +17,8 @@ if($row>0){
       $_SESSION['sess_useremail']=$line->email;
       $_SESSION['sess_user_type']=$line->type;
       echo "1";
+     }elseif($line->status==2){
+      echo "2";
      } else {
       echo "0";
      }
