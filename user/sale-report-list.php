@@ -8,7 +8,7 @@ $whr ="";
 if($_POST['search_filter']){
     $search_filter = $_POST['search_filter'];
     if($search_filter==1){
-        $whr .=" and date(order_date) > DATE_SUB(NOW(), INTERVAL 7 WEEK)";
+        $whr .=" and date(order_date) > DATE_SUB(NOW(), INTERVAL 7 DAY)";
     }else if($search_filter==2){
         $whr .=" and date(order_date) > DATE_SUB(NOW(), INTERVAL 1 MONTH)";
     }else if($search_filter==3){

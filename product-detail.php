@@ -43,7 +43,7 @@ $getpic=$obj->fetchNextObject($obj->query("select * from $tbl_product_prices whe
                   <!-- Badge container -->
                   <div class="hg_badge_container">
                    <?php if ($getpic->discount>0) { ?>
-                              <span class="hg_badge_sale"><?php echo $getpic->discount ?>% Off</span>
+                        <span class="hg_badge_sale"><?php echo $getpic->discount ?>% Off</span>
                     <?php } ?>
                     <!-- <span class="hg_badge_new">NEW!</span> -->
                   </div>

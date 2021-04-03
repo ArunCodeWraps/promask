@@ -10,21 +10,25 @@ if(count($arr)>0){
 	$str_rest_refs=implode(",",$arr);
 	if($Submit=='Delete')
 	{
-	    $sql="delete from $tbl_user where id in ($str_rest_refs)"; 
+	    $sql="delete from $tbl_order where id in ($str_rest_refs)"; 
 		$obj->query($sql);
+
+		$sql1="delete from $tbl_order_itmes where order_id in ($str_rest_refs)"; 
+		$obj->query($sql1);
+
 		$sess_msg='Selected record(s) deleted successfully';
 		$_SESSION['sess_msg']=$sess_msg;
     }
 	elseif($Submit=='Enable')
 	{	
-		$sql="update $tbl_user set status=1 where id in ($str_rest_refs)";
+		$sql="update $tbl_order set status=1 where id in ($str_rest_refs)";
 		$obj->query($sql);
 		$sess_msg='Selected record(s) activated successfully';
 		$_SESSION['sess_msg']=$sess_msg;
 	}
 	elseif($Submit=='Disable')
 	{		
-		 $sql="update $tbl_user set status=0 where id in ($str_rest_refs)";
+		 $sql="update $tbl_order set status=0 where id in ($str_rest_refs)";
 		$obj->query($sql);
 		$sess_msg='Selected record(s) deactivated successfully';
 		$_SESSION['sess_msg']=$sess_msg;
@@ -38,7 +42,7 @@ else{
 	header("location: ".$_SERVER['HTTP_REFERER']);
 	exit();
 	}
-	header("location: user-list.php");
+	header("location: order-list.php");
 	exit();
 	
 ?>

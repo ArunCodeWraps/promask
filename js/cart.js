@@ -114,8 +114,8 @@ function deleteCartItem(product_id){
 			url:"ajax-process.php",
 			data:{product_id:product_id,pr_id:pr_id,qty:qty,action:"edit_cart"},
 			success:function(data){
-				//console.log(data);
-				location.reload();	
+				console.log(data);
+				//location.reload();	
 				 
 			}
 			

@@ -36,19 +36,6 @@ validate_user();
                 <!-- Data list view starts -->
                 <section id="data-list-view" class="data-list-view-header">
                   <form name="frm" method="post" action="order-del.php" enctype="multipart/form-data">  
-                    <div class="action-btns d-none">
-                        <div class="btn-dropdown mr-1 mb-1">
-                            <div class="btn-group dropdown actions-dropodown">
-                                <button type="button" class="btn btn-white px-1 py-1 dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Actions
-                                </button>
-                                
-                                <div class="dropdown-menu bulk-action-btn">
-                                    <button type="submit" name="buttonName" value="Delete" class="button" onclick="return del_prompt(this.form,this.value)"><i class="feather icon-trash"></i>Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <!-- DataTable starts -->
                     <div class="table-responsive">
                         <table class="table data-list-view">
@@ -66,7 +53,7 @@ validate_user();
                             </thead>
                             <tbody>
                               <?php
-                              $i=1;
+                              $j=1;
                               if($_SESSION['sess_user_type']=='user'){
                                 $sql=$obj->query("select * from $tbl_order where 1=1 and user_id='".$_SESSION['sess_user_id']."' order by id desc",$debug=-1);
                               }else{
@@ -75,7 +62,7 @@ validate_user();
                               
                               while($line=$obj->fetchNextObject($sql)){?>
                                 <tr>
-                                    <td><input type="checkbox" class="dt-checkboxes" name="ids[]" value="<?php echo $line->id ?>"></td>
+                                    <td><?php echo $j++; ?></td>
                                     <td class="product-image"><?php echo stripslashes($line->order_date); ?></td>
                                     <td class="product-name"><?php echo stripslashes($line->order_id); ?></td>
                                     <td class="product-image">$<?php echo stripslashes($line->total_amount); ?></td>
@@ -84,12 +71,16 @@ validate_user();
                                         <?php echo getField('email',$tbl_user,$line->user_id); ?>
                                     </td>
                                     <td>
-                                        <select name="orderstatus" onchange="order_status(<?php echo $line->id; ?>,this.value)">
-                                            <option value="1" <?php if($line->order_status==1){?> selected <?php } ?>>New</option>
-                                            <option value="2" <?php if($line->order_status==2){?> selected <?php } ?>>Processing</option>
-                                            <option value="3" <?php if($line->order_status==3){?> selected <?php } ?>>Delivered</option>
-                                            <option value="4" <?php if($line->order_status==4){?> selected <?php } ?>>Cancelled</option>
-                                        </select>
+                                        <?php
+                                        if($line->order_status==1){
+                                            echo "New";
+                                        }else if($line->order_status==2){
+                                            echo "Processing";
+                                        }else if($line->order_status==3){
+                                            echo "Delivered";
+                                        }else if($line->order_status==4){echo "Cancelled";
+                                        } 
+                                        ?>
                                     </td>
                                     <td class="product-action">
                                     
@@ -97,7 +88,7 @@ validate_user();
                                     <i class="fa fa-eye"></i></a>                    
                                     </td>
                                 </tr>
-                                <?php $i++; }?>
+                                <?php }?>
                                 
                             </tbody>
                         </table>

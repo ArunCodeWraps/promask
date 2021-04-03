@@ -80,8 +80,8 @@ $result=$obj->fetchNextObject($sql);
 		<div class="col-6">
 			<div class="form-group">
 				<div class="controls">	
-					<label for="first-name-vertical">Commission Percentage</label>
-					<input type="text" id="first-name-vertical" class="form-control" name="commission" placeholder="Email" required data-validation-required-message="This Commission Percentage field is required" value="<?php echo stripslashes($result->commission);?>">	
+					<label for="first-name-vertical">Commission (%)</label>
+					<input type="text" id="first-name-vertical" class="form-control" name="commission" placeholder="commission" required data-validation-required-message="This Commission Percentage field is required" value="<?php echo stripslashes($result->commission);?>">	
 				</div>  	                                           
 			</div>
 		</div>	
@@ -94,7 +94,7 @@ $result=$obj->fetchNextObject($sql);
 			<div class="form-group">
 				<div class="controls">	
 					<label for="first-name-vertical">Min Price</label>
-					<input type="text" id="min_price" class="form-control" name="password" placeholder="Min Price" required data-validation-required-message="This Min Price field is required" value="<?php echo stripslashes($result->min_price);?>">	
+					<input type="text" id="min_price" class="form-control" name="min_price" placeholder="Min Price" required data-validation-required-message="This Min Price field is required" value="<?php echo stripslashes($result->min_price);?>">	
 				</div>  	                                           
 			</div>
 		</div>	

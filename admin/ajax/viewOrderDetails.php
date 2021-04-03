@@ -161,7 +161,7 @@ $enq_message.="<table width='100%' border='0' cellspacing='0' cellpadding='0'>
 <tr>
 </tr>";
 $i=0; $totmrp=0; $totdis=0; $tmrp=0; $tp=0;
-$itmesArr=$obj->query("select * from $tbl_order_itmes where order_id='".$result->id."'",$debug=1);
+$itmesArr=$obj->query("select * from $tbl_order_itmes where order_id='".$result->id."'",$debug=-1);
 $ItemNum = $obj->numRows($itmesArr);
 
 

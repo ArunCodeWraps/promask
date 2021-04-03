@@ -1041,6 +1041,14 @@ function getProductFinalPrice($id,$pr_id,$qnt) {
 	$sql=$GLOBALS['obj']->query("select * from tbl_product_prices where id='$pr_id' and product_id='$id'",-1);
 	$result=mysqli_fetch_assoc($sql);
 
+	echo $result['qnt_size1']; 
+	echo "=====";
+	echo $qnt;
+	echo "=====";
+	echo $result['qnt_size2'];
+	echo "=====";
+	echo $result['qnt_size3'];
+	die;
 	if ($result['qnt_size1'] > 0 && $qnt >= $result['qnt_size1'] && $qnt < $result['qnt_size2']) {
 		return $result['price_size1'];
 
@@ -1064,7 +1072,7 @@ function getProductFinalPrice($id,$pr_id,$qnt) {
 
 
 function getTodaySales($id) {	
-	$sql=$GLOBALS['obj']->query("select sum(total_amount) as total_amount from tbl_order where user_id='$id' and order_status=3 and date(order_date)=date(now())",$debug=-1);
+	$sql=$GLOBALS['obj']->query("select sum(total_amount) as total_amount from tbl_order where (seller_id='$id' or user_id='$id') and order_status=3 and date(order_date)=date(now())",$debug=-1);
 	$result=mysqli_fetch_assoc($sql);
 	if(empty($result['total_amount'])){
 		return 0;

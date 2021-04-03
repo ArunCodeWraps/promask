@@ -37,15 +37,12 @@ class wfCart {
 
 
 
-
-
-
 function add_item($prodId,$prodPrice,$qty,$prodName,$prodImage,$prodSize,$prodPriceId,$max_qty= FALSE)
 { 
     //$this->empty_cart();
     if(!$prodPrice)
 	{
-	        $prodPrice = wf_get_price($prodId,$qty);
+	    $prodPrice = wf_get_price($prodId,$qty);
 	}
 
     if($this->itemQnt[$prodId] > 0)
