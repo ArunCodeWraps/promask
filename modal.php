@@ -194,9 +194,9 @@
         FORGOT YOUR DETAILS?
       </h3>
 
-      <form class="forgot_form" name="forgot_form" method="post" action="#">
+      <form class="forgot_form" name="forgot_form" id="forgot_form" method="post" action="#">
         <div class=" kl-fancy-form">
-          <input type="text" id="forgot-email" name="user_login" class="form-control inputbox kl-fancy-form-input kl-fw-input" placeholder="...">
+          <input type="text" id="forgot-email" name="user_email" class="form-control inputbox kl-fancy-form-input kl-fw-input" placeholder="...">
           <label class="kl-font-alt kl-fancy-form-label">
             USERNAME OR EMAIL
           </label>
@@ -205,7 +205,7 @@
         <div class="">
           <input type="submit" id="recover" name="submit" class="btn btn-block zn_sub_button btn-fullcolor btn-md" value="SEND MY DETAILS!">
         </div>
-        
+        <p id="forgoterrmsg" style="font-size: 13px;text-align: center;margin-top: 20px;"></p>
         <div class="links auth-popup-links">
           <a href="#login_panel" class="kl-login-box auth-popup-link">
             AAH, WAIT, I REMEMBER NOW!

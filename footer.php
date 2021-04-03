@@ -265,6 +265,60 @@
             }
         });
     });
+
+
+
+
+
+
+$(document).ready(function () {
+        $(".forgot_form").submit(function(e) {
+
+          e.preventDefault(); // avoid to execute the actual submit of the form.
+          var form = $(this);
+
+              $.ajax({
+                    type: "POST"
+                    , url: "ajax/forgot_password.php"
+                    , data: form.serialize()
+                    , success: function (data) {
+                        //console.log(data);
+                        if (data=='1') {
+                            $('#forgoterrmsg').html('El password ha sido enviado a su direccion de correo.'); 
+                           
+                        }else if(data=='0'){
+                            $('#forgoterrmsg').html('Por favor ingrese un email valido.');                
+                        }
+                        
+                    }
+                });
+        });
+    });
+
+
+ function forgotPassword() {
+    var email = $('#forgot_email').val();
+    
+    if (email) {
+        $.ajax({
+            type: "POST",
+            url: "ajax/forgot_password.php",
+            data:{'forgot_email':email},
+            success: function(data){
+                console.log(data);
+                if (data=='1') {
+                    $('#forgoterrmsg').html('The password has been sent to your email address'); 
+                   
+                }else if(data=='0'){
+                    $('#forgoterrmsg').html('Please enter a valid email');                
+                }
+            }
+        });
+
+    } else {
+        $("#forgoterrmsg").html('Please enter a valid email');
+    }
+}   
 </script>
 
 
