@@ -1,15 +1,19 @@
-  
+$(document).ready(function() {  
+
+
   $("#check_all").click(function(){
      $('.checkall').not(this).prop('checked', this.checked); 
   });
   
 $('.chkstatus').click(function() {
+    
+
     if ($(this).is(':checked')) {
         var status=1;
     }else{
        status=0;
     }
-
+    //alert(status);
 
     var id=$(this).val();
     var tableName=$(this).data('one');
@@ -66,3 +70,7 @@ function makeExOffer(id,chk){
     
     })
 }
+
+
+
+});

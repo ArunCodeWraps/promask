@@ -2,7 +2,7 @@
 // session_start();
 include("../../include/config.php");
 include("../../include/functions.php"); 
-validate_admin();
+//validate_admin();
   
 
 $id=$_POST['id'];
