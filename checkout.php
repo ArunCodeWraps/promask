@@ -258,7 +258,7 @@ $cartData=$itmes;
                   
                   <input type="hidden" name="public-key" value="pub_test_mJTauLDQ8TRwyNDI7yUdcivaHFElrDU3" />
                   <input type="hidden" name="currency" value="COP" />
-                  <input type="hidden" name="amount-in-cents" id="paymentAmount" value="<?php echo $finalPrice ?>" />
+                  <input type="hidden" name="amount-in-cents" id="paymentAmount" value="<?php echo bcmul($finalPrice, 100) ?>" />
                   <input type="hidden" name="reference" value="<?php echo $referenceCode ?>" />
                   <!-- OPCIONALES -->
                   <input type="hidden" name="redirect-url" value="http://localhost/promask/payment.php" />
