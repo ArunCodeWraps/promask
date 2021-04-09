@@ -62,7 +62,7 @@ body.vertical-layout.vertical-menu-modern.menu-expanded .main-menu {
     body.vertical-layout.vertical-menu-modern.menu-expanded .main-menu .navigation > li > a > span.badge {
       position: absolute;
       right: 20px; }
-  body.vertical-layout.vertical-menu-modern .main-menu .navigation li.has-sub > a:not(.mm-next):after {
+  body.vertical-layout.vertical-menu-modern.menu-expanded .main-menu .navigation li.has-sub > a:not(.mm-next):after {
     content: "\f105";
     font-family: 'FontAwesome';
     font-size: 1.1rem;

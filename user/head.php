@@ -42,12 +42,13 @@
   <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/file-uploaders/dropzone.min.css">
   <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/tables/datatable/extensions/dataTables.checkboxes.css">
   <link rel='stylesheet' href='app-assets/css/plugins/forms/validation/form-validation.css'>
+  
   <!-- END: Page CSS-->
 
   <!-- BEGIN: Custom CSS-->
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="css/custom.css">
-  
+  <link rel="stylesheet" type="text/css" href="app-assets/css/pages/app-chat.css">
   <!-- END: Custom CSS-->
 <!-- BEGIN: Vendor JS-->
 <script src="app-assets/vendors/js/vendors.min.js"></script>
@@ -77,6 +78,7 @@
 <script src="app-assets/vendors/js/forms/validation/jqBootstrapValidation.js"></script>
 <script src="app-assets/js/scripts/components.js"></script>
 <script src="app-assets/js/scripts/forms/validation/form-validation.js"></script>
+<!-- <script src="app-assets/js/scripts/pages/app-chat.js"></script> -->
 <script src="../include/ckeditor/ckeditor.js"></script>
 <script src="js/change-status.js"></script>
 </head>

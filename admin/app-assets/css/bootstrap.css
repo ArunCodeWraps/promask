@@ -3683,7 +3683,7 @@ input[type="button"].btn-block {
 
 .progress {
   display: flex;
-  height: 0.357rem;
+  height: 2.357rem;
   overflow: hidden;
   font-size: 0.75rem;
   background-color: #ededed;

@@ -221,68 +221,6 @@ $(window).on("load", function () {
   // Avg Session Chart ends //
 
 
-  // Support Tracker Chart starts
-  // -----------------------------
-
-  var supportChartoptions = {
-    chart: {
-      height: 270,
-      type: 'radialBar',
-    },
-    plotOptions: {
-      radialBar: {
-        size: 150,
-        startAngle: -150,
-        endAngle: 150,
-        offsetY: 20,
-        hollow: {
-          size: '65%',
-        },
-        track: {
-          background: $white,
-          strokeWidth: '100%',
-
-        },
-        dataLabels: {
-          value: {
-            offsetY: 30,
-            color: '#99a2ac',
-            fontSize: '2rem'
-          }
-        }
-      },
-    },
-    colors: [$danger],
-    fill: {
-      type: 'gradient',
-      gradient: {
-        // enabled: true,
-        shade: 'dark',
-        type: 'horizontal',
-        shadeIntensity: 0.5,
-        gradientToColors: [$primary],
-        inverseColors: true,
-        opacityFrom: 1,
-        opacityTo: 1,
-        stops: [0, 100]
-      },
-    },
-    stroke: {
-      dashArray: 8
-    },
-    series: [83],
-    labels: ['Completed Tickets'],
-
-  }
-
-  var supportChart = new ApexCharts(
-    document.querySelector("#support-tracker-chart"),
-    supportChartoptions
-  );
-
-  supportChart.render();
-
-  // Support Tracker Chart ends
 
 
   // Product Order Chart starts

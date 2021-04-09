@@ -29,6 +29,9 @@
             <li class="<?php echo ($pageName =='sale-report-list')?'active':'' ?> nav-item"><a href="sale-report-list.php"><i class="feather icon-grid"></i><span class="menu-title" data-i18n="Email">Sell Report</span></a>
             </li>
             <?php }?>
+             <li class=" navigation-header"><span>Chat</span></li>
+                <li class="<?php echo ($pageName =='chat')?'active':'' ?> nav-item"><a href="chat.php"><i class="feather icon-grid"></i><span class="menu-title" data-i18n="Email">Chat</span></a>
+             </li>
              <li class=" navigation-header"><span>Change Password</span></li>
              <li class="<?php echo ($pageName =='change-password')?'active':'' ?> nav-item"><a href="change-password.php"><i class="feather icon-grid"></i><span class="menu-title" data-i18n="Email">Change Password</span></a>
             </li>

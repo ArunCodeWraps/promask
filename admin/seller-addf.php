@@ -1,6 +1,12 @@
 <?php
 include("../include/config.php");
 include("../include/functions.php");
+
+require_once('../vendor_firebase/autoload.php');
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\ServiceAccount;
+
+
 validate_admin();
 
 if($_REQUEST['submitForm']=='yes'){
@@ -10,7 +16,31 @@ if($_REQUEST['submitForm']=='yes'){
 	$cpassword=$obj->escapestring($_REQUEST['cpassword']);
 	if($_REQUEST['id']==''){
 		$obj->query("insert into $tbl_user set seller_id='0',name='$name',email='$email',password='$password',type='seller'",$debug=-1);
-		$_SESSION['sess_msg']='User added sucessfully';
+
+
+		  $u_id = $obj->lastInsertedId();
+
+	      $connection_id = uniqid().rand().uniqid();
+	      $serviceAccount = ServiceAccount::fromJsonFile('../firebase_config.json');
+	      $firebase = (new Factory)
+	          ->withServiceAccount($serviceAccount)
+	          ->withDatabaseUri('https://mychat-65fa2-default-rtdb.firebaseio.com/')
+	          ->create();
+	         
+	      $database = $firebase->getDatabase();
+
+	      $newPost = $database
+	          ->getReference('Connections/'. $connection_id)
+	          ->set([
+	              'connection_id' => $connection_id,
+	          ]);
+
+	      $obj->query("insert into tbl_friend_request set from_id='0',to_id='$u_id',status='1',connection_id='$connection_id'",$debug=-1);	
+
+		  $_SESSION['sess_msg']='User added sucessfully';
+
+
+
 	}else{     
 		$obj->query("update $tbl_user set name='$name',email='$email' where id='".$_REQUEST['id']."'",$debug=-1);
 		$obj->query($sql);

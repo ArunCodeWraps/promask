@@ -157,13 +157,4 @@ $(window).on("resize", function() {
   }
 });
 
-// Add message to chat
-function enter_chat(source) {
-   var message = $(".message").val();
-   if(message != ""){
-  var html = '<div class="chat-content">' + "<p>" + message + "</p>" + "</div>";
-  $(".chat:last-child .chat-body").append(html);
-  $(".message").val("");
-  $(".user-chats").scrollTop($(".user-chats > .chats").height());
-   }
-}
+
