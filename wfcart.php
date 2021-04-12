@@ -42,24 +42,66 @@ function add_item($prodId,$prodPrice,$qty,$prodName,$prodImage,$prodSize,$prodPr
     //$this->empty_cart();
     if(!$prodPrice)
 	{
-	    $prodPrice = wf_get_price($prodId,$qty);
+	    $prodPrice = wf_get_price($prodPriceId,$qty);
 	}
 
-    if($this->itemQnt[$prodId] > 0)
+    if($this->itemQnt[$prodPriceId] > 0)
     { 
-        $this->itemQnt[$prodId] = $qty + $this->itemQnt[$prodId];   	
+        $this->itemQnt[$prodPriceId] = $qty + $this->itemQnt[$prodPriceId];  
+        $this->_update_total();		 	
 		
 	} else {
-		$this->items[]=$prodId;
-		$this->itemProdId[$prodId] = $prodId;
-		$this->itemQnt[$prodId] = $qty;
-		$this->itemPrice[$prodId] = $prodPrice;
-		$this->itemName[$prodId] = $prodName;
-		$this->itemImage[$prodId] = $prodImage;
-		$this->itemSize[$prodId] = $prodSize;
-		$this->itemPriceId[$prodId] = $prodPriceId;
+		$this->items[]=$prodPriceId;
+		$this->itemProdId[$prodPriceId] = $prodId;
+		$this->itemQnt[$prodPriceId] = $qty;
+		$this->itemPrice[$prodPriceId] = $prodPrice;
+		$this->itemName[$prodPriceId] = $prodName;
+		$this->itemImage[$prodPriceId] = $prodImage;
+		$this->itemSize[$prodPriceId] = $prodSize;
+		$this->itemPriceId[$prodPriceId] = $prodPriceId;
 	}
 	$this->_update_total();
+
+
+
+
+	// if(!$price)
+	// 	{
+	// 	        $price = wf_get_price($itemid,$qty);
+	// 	}
+
+ //        if(!$info)
+	// 	{
+ //               $info = wf_get_info($itemid);
+	// 	}
+
+	// 	if($this->itemqtys[$itemid] > 0)
+ //        { 
+             
+ //            if ($this->itemqtys[$itemid]>$max_qty) {
+                
+
+ //            }else{
+ //            	$tqty=$qty + $this->itemqtys[$itemid];
+
+ //            	if ($tqty>$max_qty) {
+            		
+ //            	}else{
+ //            		$this->itemqtys[$itemid] = $qty + $this->itemqtys[$itemid];
+	// 				$this->_update_total();		
+ //            	}
+            	
+ //            }    	
+			
+	// 	} else {
+	// 		$this->items[]=$itemid;
+	// 		$this->itemprodId[$itemid] = $prodId;
+	// 		$this->itemqtys[$itemid] = $qty;
+	// 		$this->itemprices[$itemid] = $price;
+	// 		$this->iteminfo[$itemid] = $info;
+	// 		$this->itemType[$itemid] = $p_type;
+	// 	}
+	// 	$this->_update_total();
 } 
 
 

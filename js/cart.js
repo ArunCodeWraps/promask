@@ -49,12 +49,12 @@ $(document).ready(function(){
 	    var element =$(this);
 		var product_id=element.data('product_id');
 		var product_name=element.data('product_name');
-		var product_price=element.data('product_price');
-		var product_image=element.data('image');
 		var product_quantity=element.data('quantity');
-		var product_size=element.data('size');
-		var product_price_id=element.data('product_price_id');
-		// alert(product_quantity);
+		var product_price=$('#product_item_price').val();
+		var product_size=$('#product_price_size').val();
+		var product_price_id=$('#product_price_id').val();
+		var product_image=$('#product_item_image').val();
+		 //alert(product_price);
 	
 		addToCart(product_id,product_name,product_price,product_image,product_quantity,product_size,product_price_id) ;
 	});

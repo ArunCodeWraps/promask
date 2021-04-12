@@ -52,8 +52,8 @@ $getpic=$obj->fetchNextObject($obj->query("select * from $tbl_product_prices whe
                   <!-- Images -->
                   <div class="images">
                     <!-- Main image -->
-                    <a href="upload_image/product/big/<?php echo $getpic->photo ?>" id="pic1-<?php echo $getpic->id ?>" class="kl-store-main-image zoom" title="<?php echo $proResult->name ?>">
-                      <img src="upload_image/product/big/<?php echo $getpic->photo ?>" class="product-detail-img" alt="<?php echo $proResult->name ?>" title="<?php echo $proResult->name ?>" id="pic-<?php echo $getpic->id ?>" />
+                    <a href="upload_image/product/big/<?php echo $getpic->photo ?>" id="pic1-<?php echo $proResult->id ?>" class="kl-store-main-image zoom" title="<?php echo $proResult->name ?>">
+                      <img src="upload_image/product/big/<?php echo $getpic->photo ?>" class="product-detail-img" alt="<?php echo $proResult->name ?>" title="<?php echo $proResult->name ?>" id="pic-<?php echo $proResult->id ?>" />
                     </a>
                     <!-- Main image -->
 
@@ -126,7 +126,7 @@ $getpic=$obj->fetchNextObject($obj->query("select * from $tbl_product_prices whe
                                   <span class="amount was">$<?php echo $getpic->price ?></span>
                                 </del>
                                 <ins>
-                                  <span class="amount now">$<?php $discount=($getpic->price*$getpic->discount)/100; echo $finalPrice= number_format($getpic->price-$discount,2) ?></span>
+                                  <span class="amount now">$<?php $discount=($getpic->price*$getpic->discount)/100;  $finalPrice= $getpic->price-$discount; echo number_format($finalPrice,2); ?></span>
                                 </ins>    
                               <?php }else { ?>
                               <ins>
@@ -172,6 +172,10 @@ $getpic=$obj->fetchNextObject($obj->query("select * from $tbl_product_prices whe
                               <div class="btn-increment-decrement" onclick="increment_quantity('<?php echo $proResult->id ?>')">+</div>
                           </div>
                           <button type="button"  class="single_add_to_cart_button button alt add-to-cart-detail" onclick="return false"  data-product_id="<?php echo $proResult->id ?>" data-product_name="<?php echo $proResult->name ?>" data-product_price="<?php echo $finalPrice ?>" data-image="<?php echo $getpic->photo ?>" data-quantity="1" data-size="<?php echo $size ?>" data-product_price_id="<?php echo $getpic->id ?>">Add to cart</button>
+                          <input type="hidden" name="product_price_id" id="product_price_id" value="<?php echo $getpic->id ?>"> 
+                          <input type="hidden" name="product_price_size" id="product_price_size" value="<?php echo $size ?>"> 
+                          <input type="hidden" name="product_item_price" id="product_item_price" value="<?php echo $finalPrice ?>"> 
+                          <input type="hidden" name="product_item_image" id="product_item_image" value="<?php echo $getpic->photo ?>"> 
 
                           <button type="button"  class="single_add_to_cart_button button alt add-to-cart-detail" onclick="return false"  data-product_id="<?php echo $proResult->id ?>" data-product_name="<?php echo $proResult->name ?>" data-product_price="<?php echo $finalPrice ?>" data-image="<?php echo $getpic->photo ?>" data-quantity="1" data-size="<?php echo $size ?>" data-product_price_id="<?php echo $getpic->id ?>">Add to Wishlist</button>
 
@@ -491,12 +495,18 @@ function changeItemPrice(id, pid) {
        }
        
        $('.add-to-cart-detail').attr('data-product_price',parseFloat(finalprice).toFixed(2)); 
+       $('#product_price_id').val(pid);
+       $('#product_price_size').val(data.size+" "+data.name);
+       $('#product_item_price').val(finalprice);
+       $('#product_item_image').val(data.photo);
        $('.add-to-cart-detail').attr('data-product_price_id',pid); 
 
        $('.add-to-cart-detail').attr('data-size',data.size+" "+data.name); 
 
-       document.getElementById("pic-" + data.product_id).src = "upload_image/product/big/" + data.photo;
-      $("#pic1-" + data.product_id).attr("href", "upload_image/product/big/" + data.photo)
+       //console.log(data.photo);
+       //console.log(data.product_id);
+        document.getElementById("pic-" + data.product_id).src = "upload_image/product/big/" + data.photo;
+         $("#pic1-" + data.product_id).attr("href", "upload_image/product/big/" + data.photo)
       }
       });
 } 
