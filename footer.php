@@ -6,7 +6,7 @@
           <div class="col-sm-12 col-md-5 mb-30">
             <!-- Title -->
             <h3 class="title m_title">
-              QUICK LINKS
+              QUICK LINKSs
             </h3>
 
             <div class="sbs">
